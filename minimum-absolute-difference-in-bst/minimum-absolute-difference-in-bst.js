@@ -11,14 +11,14 @@
  * @return {number}
  */
 var getMinimumDifference = function(root) {
-    let minimumDifference = Infinity;
+    let minimumDifference = Number.MAX_SAFE_INTEGER;
     const stack = [];
-    let prevNode = root;
+
     stack.push(root);
 
     while(stack.length > 0){
         const node = stack.pop();
-        let leftDiff = Infinity, rightDiff = Infinity;
+        let leftDiff = Number.MAX_SAFE_INTEGER, rightDiff = Number.MAX_SAFE_INTEGER;
         if(node.left){
             let temp = node.left;
             while(temp.right){
