@@ -1,0 +1,34 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+const maxLevelSum = (root) => {
+    let max = - Number.MAX_SAFE_INTEGER,
+        minLevel;
+    let level = 0;
+    let queue = [root];
+    while (queue.length) {
+        level += 1;
+        const q = [];
+        let sum = 0;
+        for (const node of queue) {
+            sum += node.val;
+            if (node.left) q.push(node.left);
+            if (node.right) q.push(node.right);
+        }
+        if (max < sum){
+          max = sum;
+          minLevel = level;
+        }
+        queue = q.slice();
+    }
+    return minLevel;
+};
