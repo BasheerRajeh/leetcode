@@ -10,17 +10,16 @@ var maxConsecutiveAnswers = function(answerKey, k) {
         let longestFalseWindow = 0;
         let startTrue = 0;
         let startFalse = 0;
-        const arr = answerKey.split('');
-        for (let i = 0; i < arr.length; i++) {
-            trueCount += (arr[i] === 'T' ? 1 : 0);
-            falseCount += (arr[i] === 'F' ? 1 : 0);
+        for (let i = 0; i < answerKey.length; i++) {
+            trueCount += (answerKey[i] === 'T' ? 1 : 0);
+            falseCount += (answerKey[i] === 'F' ? 1 : 0);
                           
             while (trueCount > k) {
-                trueCount -= (arr[startTrue] === 'T' ? 1 : 0);
+                trueCount -= (answerKey[startTrue] === 'T' ? 1 : 0);
                 startTrue++;
             }
             while (falseCount > k) {
-                falseCount -= (arr[startFalse] === 'F' ? 1 : 0);
+                falseCount -= (answerKey[startFalse] === 'F' ? 1 : 0);
                 startFalse++;
             }
               
