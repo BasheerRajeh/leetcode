@@ -13,16 +13,25 @@
  */
 var getIntersectionNode = function (headA, headB) {
     if (!headA || !headB) return null;
-
-    if (length(headA) > length(headB)) {
-        return getIntersectionNode(headA.next, headB);
+    
+    let lenA = length(headA)
+    let lenB = length(headB)
+    
+    while(lenA > lenB){
+      lenA--;
+      headA = headA.next;
     }
-    if (length(headA) < length(headB)) {
-        return getIntersectionNode(headA, headB.next);
+    
+    while(lenA < lenB){
+      lenB--;
+      headB = headB.next;
+    }
+    while(headA !== headB){
+      headA = headA.next;
+      headB = headB.next;
     }
 
-    if (headA === headB) return headA;
-    else return getIntersectionNode(headA.next, headB.next);
+    return headA;
 };
 
 var length = function (head) {
