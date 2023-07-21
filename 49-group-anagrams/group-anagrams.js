@@ -3,21 +3,11 @@
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
-    const getIndex = letter => letter.charCodeAt(0) - 97;
-    const buildArrStr = str => {
-        const arr = [];
-        str.split('').map(c => arr[getIndex(c)] = arr[getIndex(c)] + c || c );
-        return arr.join('');
-    };
-
-    const group = {};
+    const groups = {};
     for(let str of strs){
-        const key = buildArrStr(str);
-        if(group[key])
-            group[key].push(str);
-        else
-            group[key] = [str];
+        const strKey = str.split("").sort().join("");
+        groups[strKey] ? groups[strKey].push(str) : groups[strKey] = [str];
     }
 
-    return Object.values(group)
+    return Object.values(groups)
 };
