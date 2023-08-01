@@ -5,9 +5,9 @@
  */
 var combine = function(n, k) {
     const combinations = [];
-    const backtrack = (comArr, currentNo = 1)=>{
+    const backtrack = (comArr = [], currentNo = 1)=>{
         if(comArr.length === k ){
-            combinations.push([...comArr]);
+            combinations.push(Array.from(comArr));
         }
         if(comArr.length < k){
             for(let i = currentNo; i <= n; i++ ){
@@ -17,6 +17,6 @@ var combine = function(n, k) {
             }
         }
     }
-    backtrack([]);
+    backtrack();
     return combinations;        
 }
