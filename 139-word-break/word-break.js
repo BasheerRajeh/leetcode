@@ -6,17 +6,16 @@
 var wordBreak = function(s, wordDict) {
     const n = s.length;
     const dp = Array(n + 1).fill(false);
-    dp[0] = true;
-    const max_len = Math.max(...wordDict.map(word => word.length));
+    dp[n] = true;
 
-    for (let i = 1; i <= n; i++) {
-        for (let j = i - 1; j >= Math.max(i - max_len - 1, 0); j--) {
-            if (dp[j] && wordDict.includes(s.substring(j, i))) {
-                dp[i] = true;
-                break;
+    for(let i = n - 1; i >= 0; i--){
+        for(let w of wordDict){
+            if((i + w.length ) <= n && s.slice(i, i + w.length) === w){
+                dp[i] = dp[i + w.length];
             }
+            if(dp[i])
+                break;
         }
     }
-
-    return dp[n];
+    return dp[0]
 };
