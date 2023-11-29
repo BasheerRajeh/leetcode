@@ -11,13 +11,19 @@
  * @return {string[]}
  */
 var binaryTreePaths = function(root) {
-    if(!root) return []
+   const res = []
 
-    if(!root.left && !root.right) return [`${root.val}`]
-    else{
-        const left = binaryTreePaths(root.left).map(x => root.val + '->' + x)
-        const right = binaryTreePaths(root.right).map(x => root.val + '->' + x)
-
-        return [...left, ...right]
+    const btTrav = (root, path) => {
+        if(!root) return;
+        
+        if(!root.left && !root.right) 
+            res.push(path + root.val)
+        if(root.left) 
+            btTrav(root.left, path + root.val + '->')
+        if(root.right) 
+            btTrav(root.right, path + root.val + '->')
     }
-}
+
+    btTrav(root, '')
+    return res;
+};
