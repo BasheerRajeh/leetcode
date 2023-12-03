@@ -6,19 +6,15 @@ var countMaxOrSubsets = function(nums) {
     const maxBetwiseOr = nums.reduce((acc, cur) => acc | cur, 0)
 
     let counter = 0
-    const backtrack = (start, subset) => {
-        if(subset){
-            const subOr = subset.reduce((a,b) => a | b, 0)
-            if(subOr === maxBetwiseOr) 
+    const backtrack = (idx, curOr) => {
+        if(idx === nums.length){
+            if(curOr === maxBetwiseOr)
                 counter++
+            return
         }
-        
-        for (let i = start; i < nums.length; i++) {
-            subset.push(nums[i]);
-            backtrack(i + 1, subset);
-            subset.pop();
-        }
+        backtrack(idx + 1, curOr | nums[idx])
+        backtrack(idx + 1, curOr)
     }
-    backtrack(0, [])
+    backtrack(0, 0)
     return counter
 };
