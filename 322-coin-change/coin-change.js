@@ -6,7 +6,7 @@
 var coinChange = function(coins, amount) {
     dp = Array(amount + 1).fill(Number.MAX_VALUE)
     dp[0] = 0
-
+    coins.sort()
     for(let a = 1; a <= amount + 1; a++){
         for(let c of coins) {
             if(a >= c) {
