@@ -3,33 +3,29 @@
  * @return {string[]}
  */
 var letterCombinations = function(digits) {
-    const result = [];
-    const digitToChar = {
+    if(!digits) return []
+    const chrs = {
         2: 'abc',
         3: 'def',
         4: 'ghi',
         5: 'jkl',
         6: 'mno',
-        7: 'qprs',
+        7: 'pqrs',
         8: 'tuv',
         9: 'wxyz'
-    };
+    }  
 
-    const backtrack = (curDigit, curStr) => {
-        if(curStr.length === digits.length){
-            result.push(curStr);
-            return;
+    const cominations = []
+
+    const dfs = (i, cur) => {
+        if(i === digits.length) {
+            cominations.push(cur)
+            return
         }
-        
-        for(let ch of digitToChar[digits[curDigit]].split('')) 
-            backtrack(curDigit + 1, curStr + ch);
-        
+        for(let ch of chrs[digits[i]]){
+            dfs(i + 1, cur + ch)
+        }
     }
-
-    if(digits)
-        backtrack(0, "");
-    
-    return result;
-
-
+    dfs(0, '')
+    return cominations;
 };
