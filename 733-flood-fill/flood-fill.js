@@ -15,14 +15,10 @@ var floodFill = function (image, sr, sc, color) {
     const dfs = (r, c) => {
         if (image[r][c] === target) {
             image[r][c] = color
-            if(r < image.length - 1) 
-                dfs(r + 1, c)
-            if(r > 0) 
-                dfs(r - 1, c)
-            if(c < image[0].length - 1) 
-                dfs(r, c + 1)
-            if(c > 0)  
-                dfs(r, c - 1)
+            !outOfBoundry(r + 1, c) && dfs(r + 1, c)
+            !outOfBoundry(r - 1, c) && dfs(r - 1, c)
+            !outOfBoundry(r, c + 1) && dfs(r, c + 1)
+            !outOfBoundry(r, c -1 ) && dfs(r, c - 1)
         }
     }
     dfs(sr, sc)
