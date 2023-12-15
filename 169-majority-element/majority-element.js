@@ -2,23 +2,19 @@
  * @param {number[]} nums
  * @return {number}
  */
-var majorityElement = function(nums) {
-    const count = nums.reduce((acc, cur) => {
-        acc[cur] = (acc[cur] || 0) + 1
-        return acc
-    }, {})
-
-    const max = {
-        el: 0,
-        count: 0
-    }
-
-    for(let el in count) {
-        if(count[el] > max.count) {
-            max.el = el
-            max.count = count[el]
+var majorityElement = function (nums) {
+    let target = 0
+    let count = 0
+    for (let num of nums) {
+        if (count === 0) {
+            target = num
+            count = 1
+        } else if (num === target) {
+            count++
+        } else {
+            count--
         }
     }
 
-    return max.el
+    return target
 };
