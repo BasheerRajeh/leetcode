@@ -10,16 +10,17 @@
  * @return {ListNode}
  */
 var deleteDuplicates = function(head) {
+    if(head === null) return null
     let slow = head, fast = head
 
-    while(fast) {
+    while(fast !== null) {
         if(fast.val !== slow.val) {
             slow.next = fast
-            slow = fast
+            slow = slow.next
         }
-        if(fast.next === null && fast.val === slow.val) slow.next = null
         fast = fast.next
     }
 
+    slow.next = null
     return head
 };
