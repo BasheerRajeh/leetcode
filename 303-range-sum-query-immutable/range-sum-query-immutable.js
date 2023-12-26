@@ -2,7 +2,10 @@
  * @param {number[]} nums
  */
 var NumArray = function(nums) {
-    this.nums = nums
+    this.preSum = []
+    this.preSum[0] = 0
+    for(let i = 1; i <= nums.length; i++)
+        this.preSum[i] = this.preSum[i - 1] + nums[i - 1]
 };
 
 /** 
@@ -11,10 +14,7 @@ var NumArray = function(nums) {
  * @return {number}
  */
 NumArray.prototype.sumRange = function(left, right) {
-    let sum = 0
-    for(let i = left; i <= right; i++)
-        sum += this.nums[i]
-    return sum
+    return this.preSum[right + 1] - this.preSum[left]
 };
 
 /** 
