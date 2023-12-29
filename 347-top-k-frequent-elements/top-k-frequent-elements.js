@@ -4,10 +4,29 @@
  * @return {number[]}
  */
 var topKFrequent = function(nums, k) {
-    const freqs = {};
-    for(let num of nums){
-        freqs[num] = freqs[num] + 1 || 1; 
+    const count = {}
+    const freq = []
+
+    const res = []
+
+    for(let n of nums) 
+        count[n] = 1 + (count[n] || 0)
+    
+    for(let c in count){
+        if(freq[count[c]])
+            freq[count[c]].push(c)
+        else
+            freq[count[c]] = [c]
     }
 
-    return Object.keys(freqs).sort((a, b) => freqs[b] - freqs[a]).slice(0, k);
+    for(let i = freq.length - 1; i >= 0; i--){
+        if(freq[i]){
+            for(let n of freq[i]) {
+                res.push(n)
+                if(res.length === k) return res
+            }
+        }
+    }
+
+    return res
 };
