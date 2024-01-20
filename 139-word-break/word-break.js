@@ -3,19 +3,26 @@
  * @param {string[]} wordDict
  * @return {boolean}
  */
-var wordBreak = function(s, wordDict) {
-    const n = s.length;
-    const dp = Array(n + 1).fill(false);
-    dp[n] = true;
+function wordBreak(s, wordDict) {
+    const set = new Set(wordDict)
 
-    for(let i = n - 1; i >= 0; i--){
-        for(let w of wordDict){
-            if((i + w.length ) <= n && s.slice(i, i + w.length) === w){
-                dp[i] = dp[i + w.length];
+    function backtrack (cur, memo) {
+        if(memo[cur] !== undefined) 
+            return memo[cur]
+        
+        const len = cur.length
+        if(len === 0) 
+            return true
+
+        for(let i = 1; i <= len; ++i) {
+            if(set.has(cur.slice(0, i)) && backtrack(cur.slice(i), memo)){
+                memo[cur] = true
+                return true
             }
-            if(dp[i])
-                break;
         }
+        memo[cur] = false
+        return false
     }
-    return dp[0]
+
+    return backtrack(s, {})
 };
