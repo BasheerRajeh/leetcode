@@ -4,7 +4,8 @@
  */
 var letterCombinations = function(digits) {
     if(!digits) return []
-    const chrs = {
+    
+    const letters = {
         2: 'abc',
         3: 'def',
         4: 'ghi',
@@ -13,19 +14,23 @@ var letterCombinations = function(digits) {
         7: 'pqrs',
         8: 'tuv',
         9: 'wxyz'
-    }  
+    }
 
-    const cominations = []
-
-    const dfs = (i, cur) => {
+    const combinations = []
+    const cur = []
+    const dfs = (i) => {
         if(i === digits.length) {
-            cominations.push(cur)
+            combinations.push(cur.join(''))
             return
         }
-        for(let ch of chrs[digits[i]]){
-            dfs(i + 1, cur + ch)
+        
+        for(let letter of letters[digits[i]]) {
+            cur.push(letter)
+            dfs(i + 1)
+            cur.pop()
         }
     }
-    dfs(0, '')
-    return cominations;
+    dfs(0)
+    return combinations
+
 };
