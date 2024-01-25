@@ -3,22 +3,15 @@
  * @return {number[][]}
  */
 var subsets = function(nums) {
-    const res = []
-    const subset = []
-
-    const dfs = (i) => {
-        if(i >= nums.length) {
-            res.push(subset.slice())
+    const subs = []
+    const dfs = (i, cur) => {
+        if(i === nums.length) {
+            subs.push([...cur])
             return
         }
-
-        subset.push(nums[i])
-        dfs(i + 1)
-
-        subset.pop()
-        dfs(i+1)
+        dfs(i + 1, [...cur, nums[i]])
+        dfs(i + 1, cur)
     }  
-    dfs(0)
-
-    return res
+    dfs(0, [])
+    return subs
 };
