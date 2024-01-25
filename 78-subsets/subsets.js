@@ -4,14 +4,19 @@
  */
 var subsets = function(nums) {
     const subs = []
-    const dfs = (i, cur) => {
+    const cur = []
+    
+    const dfs = (i) => {
         if(i === nums.length) {
             subs.push([...cur])
             return
         }
-        dfs(i + 1, [...cur, nums[i]])
-        dfs(i + 1, cur)
+        cur.push(nums[i])
+        dfs(i + 1)
+
+        cur.pop()
+        dfs(i + 1)
     }  
-    dfs(0, [])
+    dfs(0)
     return subs
 };
