@@ -3,28 +3,32 @@
  * @return {string[][]}
  */
 var partition = function(s) {
-    const output = []
-    const partitions = []
+    const res = []
+    const part = []
 
-    const isPalindrome = str => str === str.split('').reverse().join('')
-
-
-    const findPalindrome = (str, start, parts, result) => {
-        if (start === str.length) {
-            result.push([...parts])
-            return;
+    const dfs = (i) => {
+        if(i === s.length) {
+            res.push([...part])
+            return
         }
-        
-        for (let i = start + 1; i <= str.length; i++) {
-            const target = str.substring(start, i);
-            if (isPalindrome(target)) {
-                parts.push(target);
-                findPalindrome(str, i, parts, result);        
-                parts.pop();
+        for(let j = i; j < s.length; j++) {
+            if(isPalindrom(s, i, j)) {
+                part.push(s.slice(i, j + 1))
+                dfs(j + 1)
+                part.pop()
             }
         }
     }
-
-    findPalindrome(s, 0, partitions, output);   
-    return output
+    dfs(0)
+    return res
 };
+
+function isPalindrom(arr, start, end) {
+    while(start < end) {
+        if(arr[start] !== arr[end])
+            return false
+        start++
+        end--
+    }
+    return true
+}
