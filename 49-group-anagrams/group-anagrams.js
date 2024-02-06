@@ -3,11 +3,29 @@
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
-    const groups = {};
-    for(let str of strs){
-        const strKey = str.split("").sort().join("");
-        groups[strKey] ? groups[strKey].push(str) : groups[strKey] = [str];
+    let codeToGroup = new Map();
+    for (let s of strs) {
+        let code = encode(s);
+        if (!codeToGroup.has(code)) {
+            codeToGroup.set(code, []);
+        }
+        codeToGroup.get(code).push(s);
     }
 
-    return Object.values(groups)
+    let res = [];
+    for (let group of codeToGroup.values()) {
+        res.push(group);
+    }
+
+    return res;
 };
+
+
+function encode(s) {
+    let count = new Array(26).fill(0);
+    for (let c of s) {
+        let delta = c.charCodeAt() - 'a'.charCodeAt();
+        count[delta]++;
+    }
+    return count.toString();
+}
